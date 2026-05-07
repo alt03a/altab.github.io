@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SK Altab Hossen | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --border: #2a2a3d;
+    --accent: #7c6af0;
+    --accent2: #e05c97;
+    --accent3: #5ce0c2;
+    --text: #e8e8f0;
+    --muted: #7878a0;
+    --highlight: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent3); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 6rem 5rem;
+    position: relative;
+    gap: 4rem;
+  }
+
+  .hero-bg-orbs {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    animation: drift 8s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 500px; height: 500px; background: var(--accent); top: -100px; left: -100px; }
+  .orb2 { width: 400px; height: 400px; background: var(--accent2); bottom: -100px; right: 200px; animation-delay: -3s; }
+  .orb3 { width: 300px; height: 300px; background: var(--accent3); top: 50%; right: -50px; animation-delay: -5s; }
+
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(30px, -40px) scale(1.1); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent3);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .hero-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--accent3);
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    color: var(--highlight);
+    margin-bottom: 0.5rem;
+    letter-spacing: -2px;
+  }
+
+  .hero-role {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 500;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 0.9rem 2rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124,106,240,0.4);
+  }
+
+  .btn-ghost {
+    padding: 0.9rem 2rem;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── PHOTO CARD ─── */
+  .hero-photo-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .photo-frame {
+    position: relative;
+    width: 340px;
+    height: 420px;
+  }
+
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+    border-radius: 24px;
+    z-index: -1;
+    animation: glow-border 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow-border {
+    from { opacity: 0.7; }
+    to { opacity: 1; filter: blur(2px); }
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 22px;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .photo-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1rem 1.4rem;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+  }
+  .photo-badge .big-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent3);
+    display: block;
+    line-height: 1;
+  }
+  .photo-badge small {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .photo-badge2 {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    z-index: 2;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: white;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    padding: 6rem 6rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: var(--highlight);
+    letter-spacing: -1px;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 6rem;
+  }
+
+  /* ─── SKILLS ─── */
+  #skills { background: var(--surface); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .skill-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+
+  .skill-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--highlight);
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    background: rgba(124,106,240,0.12);
+    border: 1px solid rgba(124,106,240,0.25);
+    color: var(--accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ─── PROJECT ─── */
+  #projects { }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    transition: border-color 0.3s;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .project-card:hover { border-color: var(--accent2); }
+
+  .project-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 5rem;
+    font-weight: 800;
+    color: rgba(124,106,240,0.08);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .project-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--highlight);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .project-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .project-tech span {
+    background: rgba(92,224,194,0.1);
+    border: 1px solid rgba(92,224,194,0.2);
+    color: var(--accent3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .project-highlights { list-style: none; }
+  .project-highlights li {
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 0.4rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .project-highlights li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.7rem;
+    top: 0.55rem;
+  }
+
+  .project-arrow {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 1.2rem;
+    transition: background 0.3s, color 0.3s;
+    text-decoration: none;
+    flex-shrink: 0;
+    margin-top: 1rem;
+  }
+  .project-arrow:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+  /* ─── EXPERIENCE ─── */
+  #experience { background: var(--surface); }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    padding-top: 0.3rem;
+    letter-spacing: 0.5px;
+  }
+
+  .exp-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--highlight);
+    margin-bottom: 0.3rem;
+  }
+  .exp-content .company {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1rem;
+  }
+  .exp-content p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  /* ─── EDUCATION ─── */
+  #education { }
+
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .edu-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(124,106,240,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .edu-card:hover { border-color: var(--accent3); }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .edu-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--highlight);
+    margin-bottom: 0.3rem;
+  }
+  .edu-card .institution {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+  }
+  .edu-card .grade {
+    display: inline-block;
+    background: rgba(92,224,194,0.1);
+    border: 1px solid rgba(92,224,194,0.2);
+    color: var(--accent3);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ─── ACHIEVEMENTS ─── */
+  #achievements { background: var(--surface); }
+
+  .achievement-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .achievement-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    transition: border-color 0.3s;
+  }
+  .achievement-item:hover { border-color: var(--accent2); }
+
+  .achievement-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .achievement-item h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--highlight);
+    margin-bottom: 0.3rem;
+  }
+  .achievement-item p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--bg);
+    text-align: center;
+    padding: 8rem 6rem;
+  }
+
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+
+  #contact .section-title { margin-bottom: 1rem; }
+
+  .contact-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: 'DM Mono', monospace;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 6rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    border-top: 1px solid var(--border);
+    letter-spacing: 1px;
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; text-align: center; }
+    .hero-photo-wrap { order: -1; }
+    .photo-frame { width: 240px; height: 300px; }
+    .hero-label { justify-content: center; }
+    .hero-ctas { justify-content: center; }
+    section { padding: 4rem 2rem; }
+    .section-divider { margin: 0 2rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    #contact { padding: 5rem 2rem; }
+    .project-card { grid-template-columns: 1fr; padding: 2rem; }
+    .footer { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SK Altab Hossen</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-label">B.Tech · Information Technology</div>
+    <h1>SK Altab<br>Hossen</h1>
+    <div class="hero-role">Software Developer & ML Engineer</div>
+    <p class="hero-desc">
+      Recent B.Tech graduate from University of Kalyani with a passion for building real-world applications. 
+      Experienced in real-time systems, machine learning, and modern software development.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-ghost">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-photo-wrap">
+    <div class="photo-frame">
+      <img src="https://media.licdn.com/dms/image/v2/D4D03AQHWrseFUtttlQ/profile-displayphoto-scale_200_200/B4DZp.XKyaJEAY-/0/1763056594918?e=2147483647&v=beta&t=C661aiewW35g5iAcOlReHRchQZPicSVldHf8p7WpcyY" alt="Sk Altab Hossen" />
+      <div class="photo-badge">
+        <span class="big-num">7.68</span>
+        <small>CGPA / 10.0</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Expertise</div>
+  <div class="section-title">Technical Skills</div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">⚡</div>
+      <h3>Programming Languages</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">C</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🌐</div>
+      <h3>Web Technologies</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🗄️</div>
+      <h3>Databases & Tools</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Linux</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🧠</div>
+      <h3>Core Competencies</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">DSA</span>
+        <span class="skill-tag">OOP</span>
+        <span class="skill-tag">Machine Learning</span>
+        <span class="skill-tag">AI</span>
+        <span class="skill-tag">Computer Networks</span>
+        <span class="skill-tag">OS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <div class="section-title">Featured Project</div>
+  <div class="project-card reveal">
+    <div>
+      <div class="project-number">01</div>
+      <h3>Real-Time Voice Translator</h3>
+      <p>
+        An offline real-time translation system that captures speech in any language and converts it to audio output 
+        with optimized latency. Engineered as the final-year capstone project, it supports 15 languages 
+        including Hindi, Bengali, Punjabi, Gujarati, Telugu, and Tamil.
+      </p>
+      <div class="project-tech">
+        <span>Python</span>
+        <span>Speech Recognition</span>
+        <span>NLP</span>
+        <span>Machine Learning</span>
+        <span>STT / TTS</span>
+      </div>
+      <ul class="project-highlights">
+        <li>End-to-end pipeline integrating Speech-to-Text, neural machine translation, and Text-to-Speech modules</li>
+        <li>Optimized latency through efficient buffering and parallel processing for near real-time performance</li>
+        <li>Modular architecture supporting extensibility for additional languages and voice models</li>
+        <li>Broad multilingual accessibility across 15 languages for diverse user groups</li>
+      </ul>
+    </div>
+    <a href="https://github.com/alt03a" target="_blank" class="project-arrow">↗</a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <div class="section-title">Experience</div>
+  <div class="exp-item reveal">
+    <div class="exp-date">Nov 2025 – Dec 2025<br><br>Remote | 1 Month</div>
+    <div class="exp-content">
+      <h3>Machine Learning Intern</h3>
+      <div class="company">Codtech IT Solutions Pvt. Ltd. · Intern ID: CT04DR1863</div>
+      <p>
+        Worked on Machine Learning domain tasks as part of a structured 1-month internship. 
+        Gained practical exposure to real-world ML workflows, data handling, and model development. 
+        Demonstrated strong dedication and technical skills, receiving positive remarks for active 
+        participation and consistent contributions throughout the program.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic</div>
+  <div class="section-title">Education</div>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-year">Aug 2021 – May 2025</div>
+      <h3>B.Tech in Information Technology</h3>
+      <div class="institution">University of Kalyani</div>
+      <span class="grade">CGPA: 7.68 / 10.0</span>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-year">2019 – 2021</div>
+      <h3>Higher Secondary (Class XII)</h3>
+      <div class="institution">Sagarpur Sir Ashutosh High School</div>
+      <span class="grade">80%</span>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-year">2019</div>
+      <h3>Secondary (Class X)</h3>
+      <div class="institution">Sagarpur Sir Ashutosh High School</div>
+      <span class="grade">85%</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">Recognition</div>
+  <div class="section-title">Achievements & Certifications</div>
+  <div class="achievement-list">
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🏆</div>
+      <div>
+        <h3>GATE 2026 Qualified</h3>
+        <p>Qualified GATE 2026 in Computer Science and Information Technology (CS &amp; IT) — a prestigious national-level examination.</p>
+      </div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">🎓</div>
+      <div>
+        <h3>5-Day AI Agents Intensive Course</h3>
+        <p>Completed intensive certification by Kaggle &amp; Google, gaining hands-on experience with AI agent architectures and applied ML techniques.</p>
+      </div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">💼</div>
+      <div>
+        <h3>ML Internship Certificate</h3>
+        <p>Received recognition from Codtech IT Solutions for outstanding performance during the Machine Learning Internship program (Nov–Dec 2025).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="text-align:center;">Let's Connect</div>
+    <div class="section-title" style="margin-bottom:1rem">Get In Touch</div>
+    <p class="contact-desc">
+      I'm open to new opportunities, collaborations, and conversations. 
+      Whether you have a project in mind or just want to say hello — my inbox is always open.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:skaltab.hossen03@gmail.com" class="contact-link">
+        📧 skaltab.hossen03@gmail.com
+      </a>
+      <a href="tel:+919933086350" class="contact-link">
+        📞 +91 9933086350
+      </a>
+      <a href="https://github.com/alt03a" target="_blank" class="contact-link">
+        ⎇ GitHub: alt03a
+      </a>
+      <a href="https://www.linkedin.com/in/sk-altab-hossen-877b19223" target="_blank" class="contact-link">
+        🔗 LinkedIn
+      </a>
+    </div>
+    <a href="mailto:skaltab.hossen03@gmail.com" class="btn-primary">Say Hello ✦</a>
+  </div>
+</section>
+
+<footer class="footer">
+  &copy; 2025 SK Altab Hossen · Kolkata, West Bengal, India · Built with passion
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger reveal delays
+  document.querySelectorAll('.skills-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+  });
+  document.querySelectorAll('.edu-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+  });
+</script>
+</body>
+</html>
